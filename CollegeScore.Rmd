@@ -6,7 +6,9 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
 ```
 
 ```{r imports}
@@ -19,23 +21,17 @@ CollegeScorecardDataDictionary_09_12_2015 <- read_csv("CollegeScorecardDataDicti
 ```
 
 
-```{r}
+```{r removing non-operating institutions}
 CollegeScorecard$CURROPER<- as.factor(CollegeScorecard$CURROPER)
-summary(CollegeScorecard$CURROPER)
-```
-
-```{r}
 CollegeScorecard<-subset(CollegeScorecard, CURROPER!="0")
 ```
 
-```{r}
+```{r selecting variables}
 data<-subset(CollegeScorecard, select=c("INSTNM","CONTROL","ADM_RATE","ADM_RATE_ALL","COSTT4_A","COSTT4_P","PCTPELL","PCTFLOAN"))
 ```
 
-```{r}
+```{r categorizing Control variable}
 data$CONTROL<-as.character(data$CONTROL)
-```
-```{r}
 data["CONTROL"][data["CONTROL"] == 1] <- "PUBLIC"
 data["CONTROL"][data["CONTROL"] == 2] <- "PRIVATE NONPROFIT"
 data["CONTROL"][data["CONTROL"] == 3] <- "PRIVATE FOR-PROFIT"
@@ -45,6 +41,3 @@ data$CONTROL<-as.factor(data$CONTROL)
 ```{r}
 summary(data)
 ```
-
-
-
