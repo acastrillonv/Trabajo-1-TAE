@@ -1,0 +1,50 @@
+---
+title: "College Score"
+author: 'Grupo #'
+date: "8/27/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r imports}
+library(readr)
+```
+
+```{r read data}
+CollegeScorecard <- read_csv("CollegeScorecard.csv",show_col_types = FALSE)
+CollegeScorecardDataDictionary_09_12_2015 <- read_csv("CollegeScorecardDataDictionary-09-12-2015.csv",show_col_types = FALSE)
+```
+
+
+```{r}
+CollegeScorecard$CURROPER<- as.factor(CollegeScorecard$CURROPER)
+summary(CollegeScorecard$CURROPER)
+```
+
+```{r}
+CollegeScorecard<-subset(CollegeScorecard, CURROPER!="0")
+```
+
+```{r}
+data<-subset(CollegeScorecard, select=c("INSTNM","CONTROL","ADM_RATE","ADM_RATE_ALL","COSTT4_A","COSTT4_P","PCTPELL","PCTFLOAN"))
+```
+
+```{r}
+data$CONTROL<-as.character(data$CONTROL)
+```
+```{r}
+data["CONTROL"][data["CONTROL"] == 1] <- "PUBLIC"
+data["CONTROL"][data["CONTROL"] == 2] <- "PRIVATE NONPROFIT"
+data["CONTROL"][data["CONTROL"] == 3] <- "PRIVATE FOR-PROFIT"
+data$CONTROL<-as.factor(data$CONTROL)
+```
+
+```{r}
+summary(data)
+```
+
+
+
