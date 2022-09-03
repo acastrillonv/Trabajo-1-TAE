@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Valentina Vanegas   Edwar Londoño   Diego Chavarría   Andrés Castrillón   SebastiaN Rendón">
+
+<title>quarto-input47b397a0</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Documento_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Documento_files/libs/quarto-html/quarto.js"></script>
+<script src="Documento_files/libs/quarto-html/popper.min.js"></script>
+<script src="Documento_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Documento_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Documento_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Documento_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Documento_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Documento_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Documento_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="Documento_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="Documento_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><center>
+Análisis de las instituciones educativas de los Estados Unidos
+</center></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Valentina Vanegas <br> Edwar Londoño <br> Diego Chavarría <br> Andrés Castrillón <br> SebastiaN Rendón </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="inicio" class="level2">
+<h2 class="anchored" data-anchor-id="inicio">Inicio</h2>
+<p>copia y pega</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>CollegeScorecard <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"CollegeScorecard.csv"</span>,<span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>CollegeScorecardDataDictionary_09_12_2015 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"CollegeScorecardDataDictionary-09-12-2015.csv"</span>,<span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>CollegeScorecard<span class="sc">$</span>CURROPER<span class="ot">&lt;-</span> <span class="fu">as.factor</span>(CollegeScorecard<span class="sc">$</span>CURROPER)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CollegeScorecard<span class="ot">&lt;-</span><span class="fu">subset</span>(CollegeScorecard, CURROPER<span class="sc">!=</span><span class="st">"0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">subset</span>(CollegeScorecard, <span class="at">select=</span><span class="fu">c</span>(<span class="st">"INSTNM"</span>,<span class="st">"CONTROL"</span>,<span class="st">"ADM_RATE"</span>,<span class="st">"ADM_RATE_ALL"</span>,<span class="st">"COSTT4_A"</span>,<span class="st">"COSTT4_P"</span>,<span class="st">"PCTPELL"</span>,<span class="st">"PCTFLOAN"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>CONTROL<span class="ot">&lt;-</span><span class="fu">as.character</span>(data<span class="sc">$</span>CONTROL)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">"CONTROL"</span>][data[<span class="st">"CONTROL"</span>] <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"PUBLIC"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">"CONTROL"</span>][data[<span class="st">"CONTROL"</span>] <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"PRIVATE NONPROFIT"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>data[<span class="st">"CONTROL"</span>][data[<span class="st">"CONTROL"</span>] <span class="sc">==</span> <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="st">"PRIVATE FOR-PROFIT"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>CONTROL<span class="ot">&lt;-</span><span class="fu">as.factor</span>(data<span class="sc">$</span>CONTROL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(data),<span class="at">caption =</span> <span class="st">"summary"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">"hover"</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">full_width =</span> F) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class=" lightable-paper lightable-hover lightable-minimal" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>summary</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">    INSTNM </th>
+   <th style="text-align:left;">               CONTROL </th>
+   <th style="text-align:left;">    ADM_RATE </th>
+   <th style="text-align:left;">  ADM_RATE_ALL </th>
+   <th style="text-align:left;">    COSTT4_A </th>
+   <th style="text-align:left;">    COSTT4_P </th>
+   <th style="text-align:left;">    PCTPELL </th>
+   <th style="text-align:left;">    PCTFLOAN </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> Length:7441 </td>
+   <td style="text-align:left;"> PRIVATE FOR-PROFIT:3461 </td>
+   <td style="text-align:left;"> Min.   :0.000 </td>
+   <td style="text-align:left;"> Min.   :0.000 </td>
+   <td style="text-align:left;"> Min.   : 4157 </td>
+   <td style="text-align:left;"> Min.   : 3057 </td>
+   <td style="text-align:left;"> Min.   :0.0000 </td>
+   <td style="text-align:left;"> Min.   :0.0000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> Class :character </td>
+   <td style="text-align:left;"> PRIVATE NONPROFIT :1928 </td>
+   <td style="text-align:left;"> 1st Qu.:0.552 </td>
+   <td style="text-align:left;"> 1st Qu.:0.561 </td>
+   <td style="text-align:left;"> 1st Qu.:13964 </td>
+   <td style="text-align:left;"> 1st Qu.:14070 </td>
+   <td style="text-align:left;"> 1st Qu.:0.3557 </td>
+   <td style="text-align:left;"> 1st Qu.:0.3348 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> Mode  :character </td>
+   <td style="text-align:left;"> PUBLIC            :2052 </td>
+   <td style="text-align:left;"> Median :0.699 </td>
+   <td style="text-align:left;"> Median :0.715 </td>
+   <td style="text-align:left;"> Median :22560 </td>
+   <td style="text-align:left;"> Median :17753 </td>
+   <td style="text-align:left;"> Median :0.5077 </td>
+   <td style="text-align:left;"> Median :0.5886 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Mean   :0.682 </td>
+   <td style="text-align:left;"> Mean   :0.690 </td>
+   <td style="text-align:left;"> Mean   :24312 </td>
+   <td style="text-align:left;"> Mean   :18346 </td>
+   <td style="text-align:left;"> Mean   :0.5231 </td>
+   <td style="text-align:left;"> Mean   :0.5278 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> 3rd Qu.:0.833 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.839 </td>
+   <td style="text-align:left;"> 3rd Qu.:30538 </td>
+   <td style="text-align:left;"> 3rd Qu.:22420 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.6971 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.7535 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Max.   :1.000 </td>
+   <td style="text-align:left;"> Max.   :1.000 </td>
+   <td style="text-align:left;"> Max.   :74473 </td>
+   <td style="text-align:left;"> Max.   :89422 </td>
+   <td style="text-align:left;"> Max.   :1.0000 </td>
+   <td style="text-align:left;"> Max.   :1.0000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA's   :5245 </td>
+   <td style="text-align:left;"> NA's   :4992 </td>
+   <td style="text-align:left;"> NA's   :3421 </td>
+   <td style="text-align:left;"> NA's   :5054 </td>
+   <td style="text-align:left;"> NA's   :695 </td>
+   <td style="text-align:left;"> NA's   :695 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

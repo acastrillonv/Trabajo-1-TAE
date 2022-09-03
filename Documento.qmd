@@ -1,0 +1,45 @@
+---
+title: "<center>Análisis de las instituciones educativas de los Estados Unidos</center>"
+author: "Valentina Vanegas <br> Edwar Londoño <br> Diego Chavarría <br> Andrés Castrillón <br> SebastiaN Rendón"
+format: html
+editor: visual
+---
+
+## Inicio
+
+copia y pega
+
+```{r imports}
+library(readr)
+library(kableExtra)
+```
+
+```{r read data}
+CollegeScorecard <- read_csv("CollegeScorecard.csv",show_col_types = FALSE)
+CollegeScorecardDataDictionary_09_12_2015 <- read_csv("CollegeScorecardDataDictionary-09-12-2015.csv",show_col_types = FALSE)
+```
+
+```{r removing non-operating institutions}
+CollegeScorecard$CURROPER<- as.factor(CollegeScorecard$CURROPER)
+CollegeScorecard<-subset(CollegeScorecard, CURROPER!="0")
+```
+
+```{r selecting variables}
+data<-subset(CollegeScorecard, select=c("INSTNM","CONTROL","ADM_RATE","ADM_RATE_ALL","COSTT4_A","COSTT4_P","PCTPELL","PCTFLOAN"))
+```
+
+```{r categorizing Control variable}
+data$CONTROL<-as.character(data$CONTROL)
+data["CONTROL"][data["CONTROL"] == 1] <- "PUBLIC"
+data["CONTROL"][data["CONTROL"] == 2] <- "PRIVATE NONPROFIT"
+data["CONTROL"][data["CONTROL"] == 3] <- "PRIVATE FOR-PROFIT"
+data$CONTROL<-as.factor(data$CONTROL)
+```
+
+```{r}
+
+kable(summary(data),caption = "summary") %>% 
+  kable_paper("hover", 
+              full_width = F) %>% 
+  kable_minimal()
+```
