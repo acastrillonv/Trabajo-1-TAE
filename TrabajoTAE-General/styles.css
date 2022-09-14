@@ -21,10 +21,29 @@ body {
     font-kerning: normal;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 2000px) {
+    body {
+        max-width: 60em;
+        padding-left: 5em;
+        padding-right: 5em;
+    }
+}
+
+@media (max-width: 1500px) {
+    body {
+        max-width: 50em;
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+}
+
+@media (max-width: 1200px) {
     body {
         font-size: 0.9em;
         padding: 1em;
+        margin: 50px auto;
+        padding-top: 10px;
+        padding-bottom: 50px;
     }
 }
 
