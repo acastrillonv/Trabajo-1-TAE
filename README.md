@@ -1,16 +1,344 @@
-El Departamento de Educación de los Estados Unidos pone a disposición del público general información para tomar mejores decisiones en la elección de instituciones de educación. Los lineamientos se completan en el enlace adjunto.
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 
-Este trabajo tiene los siguientes retos:
-- Desarrollar un agrupamiento de instituciones de educación superior
-- Caracterizar cada grupo
-- Entender qué hace que un grupo sea una buena opción
-- Proponer (sin implementar) cómo se podría generar un conjunto de datos que permita hacer lo mismo para Colombia a partir de la información disponible y de otra que se deba recaudar
-- Generar un producto de datos a partir del análisis efectuado sobre la base de datos que se relaciona en esta guía
-- Promocionar ideas y resultados del trabajo técnico
-Es importante aclarar que este trabajo tiene soluciones en internet. Es válido, citándolas y dándoles crédito, utilizarlas para proponer soluciones innovadoras.
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Análisis de las instituciones educativas de los Estados Unidos.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 
-Los entregables de este trabajo son:
-- Reporte técnico publicado como entrada de blog (por ejemplo en RPubs o GitHub)
-- Aplicación web que permita interactuar con los distintos grupos y observar sus características
-- Código publicado en alguna plataforma como GitHub
-- Video promocional del reporte técnico publicado en YouTube. El video debe tener una duración entre dos y cinco minutos y todos los integrantes del equipo deben aparecer hablando de lo que se hizo y de los hallazgos.
+<body>
+  <section id="análisis-de-las-instituciones-educativas-de-los-estados-unidos" class="cell markdown">
+    <h1>Análisis de las instituciones educativas de los Estados Unidos</h1>
+    <h2 id="autores">Autores:</h2>
+    <ul>
+      <li>Valentina Vanegas Castaño.</li>
+      <li>Edwar Jose Londoño Correa.</li>
+      <li>Andres Castrillón Velasquez.</li>
+      <li>Diego Andres Chavarría Riaño.</li>
+      <li>Sebastian Rendón Arteaga.</li>
+    </ul>
+  </section>
+  <section id="contexto-del-problema" class="cell markdown">
+    <h1>Contexto del Problema</h1>
+    <p>El Departamento de Educación de los Estados Unidos pone a disposición del público información para tomar mejores
+      decisiones en la elección de instituciones de educación. Esta información se encuentra almacenada en el dataset
+      “CollegeScorecard.csv”, publicado en el año 2016, las observaciones corresponden a la información de las
+      diferentes instituciones educativas de dicho país y el dataset se compone de 7804 observaciones y 1725 variables.
+      El objetivo de este proyecto es identificar dentro del dataset si existen grupos de observaciones que contengan
+      similitud con base a las categorías con las que se van a trabajar.</p>
+  </section>
+  <section id="carga-de-la-base-de-datos" class="cell markdown">
+    <h3>Carga de la base de datos.</h3>
+  </section>
+  <div class="cell code" data-execution_count="2">
+    <div class="sourceCode" id="cb1">
+    </div>
+    <div class="output execute_result" data-execution_count="2">
+      <pre><code>Dimension de la base de datos: (7804, 1725)</code></pre>
+    </div>
+  </div>
+  <section id="depuración-de-los-datos" class="cell markdown">
+    <h3>Depuración de los datos.</h3>
+  </section>
+  <div class="cell markdown">
+    <p>Para la depuración inicial de la base de datos se tomaron en cuenta las instituciones que están operando
+      actualmente y que sean solamente presenciales. Luego seleccionamos las variables que queremos tomar en cuenta en
+      nuestro estudio:</p>
+    <ul>
+      <li>Nombre de institución.</li>
+      <li>Tipo_de_Entidad: Tipo de institución (Public, private nonprofit, private for-profit).</li>
+      <li>Costo_Anual_Estudio: costo anual de estudio.</li>
+      <li>Becados_Pell: porcentaje de estudiantes con beca "PELL".</li>
+      <li>Estudiantes_Mayor_25: porcentaje de estudiantes mayores a 25 años.</li>
+      <li>GananciaEstudiante: Ganancia de la universidad por estudiante.</li>
+    </ul>
+    <p>Luego, se procedió a revisar los valores nulos de las variables seleccionadas y se eliminaron los valores nulos
+      debido a que no tienen una gran representación en la base de datos.</p>
+  </div>
+  <div class="cell code" data-execution_count="7">
+    <div class="sourceCode" id="cb4">
+      <pre class="sourceCode python"><code class="sourceCode python"></code></pre>
+    </div>
+    <div class="output execute_result" data-execution_count="7">
+      <pre><code>PUBLIC                1584
+PRIVATE NONPROFIT     1259
+PRIVATE FOR-PROFIT     904
+Name: Tipo_de_Entidad, dtype: int64</code></pre>
+    </div>
+  </div>
+  <section id="normalización-de-las-variables" class="cell markdown">
+    <h3>Normalización de las variables</h3>
+    <p>Se normaliza la base de datos convirtiendo las variables categóricas en "dummies", se normalizan las variables de
+      tipo numérica para transformarlas a escala de [0,1], y se elimina la variable <strong>"INSTNM"</strong> para poder
+      crear el modelo de agrupamiento.</p>
+  </section>
+  <div class="cell code" data-execution_count="12">
+    <div class="sourceCode" id="cb6">
+      <pre
+        class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se visualiza el dataframe</span></span></code></pre>
+    </div>
+    <div class="output execute_result" data-execution_count="12">
+      <div>
+        <style scoped>
+          .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+          }
+
+          .dataframe tbody tr th {
+            vertical-align: top;
+          }
+
+          .dataframe thead th {
+            text-align: right;
+          }
+        </style>
+        <table border="1" class="dataframe">
+          <thead>
+            <tr style="text-align: right;">
+              <th></th>
+              <th>Costo_Anual_Estudio</th>
+              <th>Becados_Pell</th>
+              <th>Estudiantes_Mayor_25</th>
+              <th>GananciaEstudiante</th>
+              <th>Tipo_de_Entidad_PRIVATE FOR-PROFIT</th>
+              <th>Tipo_de_Entidad_PRIVATE NONPROFIT</th>
+              <th>Tipo_de_Entidad_PUBLIC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>0</th>
+              <td>0.209497</td>
+              <td>0.7115</td>
+              <td>0.1049</td>
+              <td>0.147049</td>
+              <td>0</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <th>1</th>
+              <td>0.225169</td>
+              <td>0.3505</td>
+              <td>0.2422</td>
+              <td>0.146562</td>
+              <td>0</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <th>2</th>
+              <td>0.115806</td>
+              <td>0.6839</td>
+              <td>0.8540</td>
+              <td>0.195638</td>
+              <td>0</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>3</th>
+              <td>0.229663</td>
+              <td>0.3281</td>
+              <td>0.2640</td>
+              <td>0.135023</td>
+              <td>0</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <th>4</th>
+              <td>0.188336</td>
+              <td>0.8265</td>
+              <td>0.1270</td>
+              <td>0.126763</td>
+              <td>0</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <section id="correlación-de-las-variables" class="cell markdown">
+    <h3>Correlación de las variables</h3>
+    <p>Se analiza el grado de correlación existente entre las variables con las que se esta trabajando.</p>
+  </section>
+  <div class="cell code" data-execution_count="13">
+    <div class="sourceCode" id="cb7">
+      <pre
+        class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se crea y se grafica la matriz de correlación</span></span></code></pre>
+    </div>
+    <div class="output display_data">
+      <p><img src="assets/a74d98b8910b0f9b053b212926f1c8e877f8531b.png" /></p>
+    </div>
+  </div>
+  <div class="cell markdown">
+    <p>Se puede observar que la correlación mas significativa es entre las variables "Costo_Anual_Estudio" y
+      "GananciaEstudiante" que tiene un valor de 0.79.</p>
+  </div>
+  <section id="creación-el-modelo-de-agrupamiento" class="cell markdown">
+    <h3>Creación el modelo de agrupamiento.</h3>
+    <p>Para el proyecto, se utilizará el metodo <strong>K-Means</strong>. Para esto primero se utilizará el método
+      <strong>Codo</strong> para poder identificar el número óptimo de clusters. Ya luego se procede a la creación de
+      los clusters.
+    </p>
+  </section>
+  <div class="cell code" data-execution_count="14">
+    <div class="sourceCode" id="cb8">
+      <pre
+        class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Se analiza el número óptimo de clusters</span></span></code></pre>
+    </div>
+    <div class="output display_data">
+      <p><img src="assets/6c5b2164ef8dd581ea27343c37e4d5882a44f49c.png" /></p>
+    </div>
+    <div class="output execute_result" data-execution_count="14">
+      <pre><code>&lt;AxesSubplot:title={&#39;center&#39;:&#39;Distortion Score Elbow for KMeans Clustering&#39;}, xlabel=&#39;k&#39;, ylabel=&#39;distortion score&#39;&gt;</code></pre>
+    </div>
+  </div>
+  <div class="cell markdown">
+    <p>Al realizar el método del codo encontramos que el número óptimo de clusters es 4.</p>
+  </div>
+  <div class="cell code" data-execution_count="15">
+    <div class="sourceCode" id="cb10">
+      <pre
+        class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se crea el modelo usando K-Means, y se grafican sus centroides</span></span></code></pre>
+    </div>
+    <div class="output display_data">
+      <p><img src="assets/30a7a0ea3c112679c3b7b7a287b6279f6acf3506.png" /></p>
+    </div>
+  </div>
+  <div class="cell code" data-execution_count="16">
+    <div class="sourceCode" id="cb11">
+      <pre
+        class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Se crean los grupos de acuerdo a la clasificación obtenida</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Se crea el dataframe df el cual contiene la media todas las variables por grupo</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Se visualiza el data frame df</span></span></code></pre>
+    </div>
+    <div class="output execute_result" data-execution_count="16">
+      <div>
+        <style scoped>
+          .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+          }
+
+          .dataframe tbody tr th {
+            vertical-align: top;
+          }
+
+          .dataframe thead th {
+            text-align: right;
+          }
+        </style>
+        <table border="1" class="dataframe">
+          <thead>
+            <tr style="text-align: right;">
+              <th></th>
+              <th>grupo0</th>
+              <th>grupo1</th>
+              <th>grupo2</th>
+              <th>grupo3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Costo_Anual_Estudio</th>
+              <td>23987.182449</td>
+              <td>24699.337389</td>
+              <td>24683.785621</td>
+              <td>24284.678138</td>
+            </tr>
+            <tr>
+              <th>Becados_Pell</th>
+              <td>0.488891</td>
+              <td>0.484248</td>
+              <td>0.486150</td>
+              <td>0.474290</td>
+            </tr>
+            <tr>
+              <th>Estudiantes_Mayor_25</th>
+              <td>0.362336</td>
+              <td>0.365876</td>
+              <td>0.361796</td>
+              <td>0.347972</td>
+            </tr>
+            <tr>
+              <th>GananciaEstudiante</th>
+              <td>9774.950126</td>
+              <td>9977.357301</td>
+              <td>10316.990850</td>
+              <td>9770.716599</td>
+            </tr>
+            <tr>
+              <th>Tipo_de_Entidad_PRIVATE FOR-PROFIT</th>
+              <td>0.239268</td>
+              <td>0.236726</td>
+              <td>0.254902</td>
+              <td>0.234818</td>
+            </tr>
+            <tr>
+              <th>Tipo_de_Entidad_PRIVATE NONPROFIT</th>
+              <td>0.328914</td>
+              <td>0.359513</td>
+              <td>0.329412</td>
+              <td>0.325911</td>
+            </tr>
+            <tr>
+              <th>Tipo_de_Entidad_PUBLIC</th>
+              <td>0.431818</td>
+              <td>0.403761</td>
+              <td>0.415686</td>
+              <td>0.439271</td>
+            </tr>
+            <tr>
+              <th>Clasificacion</th>
+              <td>0.000000</td>
+              <td>1.000000</td>
+              <td>2.000000</td>
+              <td>3.000000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="cell markdown">
+    <h3>Se grafica un box-plot</h3>
+    <p><img src="assets/newplot.png" /></p>
+  </div>
+  <section id="conclusión" class="cell markdown">
+    <h3>Conclusión</h3>
+  </section>
+  <div class="cell markdown">
+    <p>Del análisis realizado no logramos identificar las características en especifico que hacen que una institucion
+      educativa pertenezca a un grupo u otro, sin embargo si pudimos notar que en nuestro modelo de agrupamiento es
+      bastante representativo, es decir, una diferencia el 0.01 entre grupos la podemos tomar como significativa. Por
+      otro lado, realizando pruebas pudimos notar que, si dividimos el grupo en instituciones en específico
+      ('University', 'College', 'Institution') tenemos un comportamiento similar, por lo que se decidió generar un
+      estudio en general.</p>
+  </div>
+  <section id="propuesta" class="cell markdown">
+    <h3>Propuesta</h3>
+  </section>
+  <div class="cell markdown">
+    <p>Para realizar este mismo análisis en Colombia podemos revisar la información que proporciona el ministerio de
+      educación en la que encontramos censos en las instituciones de educación superior y contrastando información para
+      generar agrupamientos similares que nos permitan clasificar las instituciones de eduación superior en Colombia.
+    </p>
+  </div>
+  <section id="refencias" class="cell markdown">
+    <h3>Refencias</h3>
+  </section>
+  <div class="cell code">
+    <div class="sourceCode" id="cb13">
+      <pre
+        class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>https:<span class="op">//</span>www.datacamp.com<span class="op">/</span>tutorial<span class="op">/</span>k<span class="op">-</span>means<span class="op">-</span>clustering<span class="op">-</span>r</span></code></pre>
+    </div>
+  </div>
+</body>
+
+</html>
