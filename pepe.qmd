@@ -1,0 +1,245 @@
+---
+title: "<center>Análisis de las instituciones educativas de los Estados Unidos</center>"
+author: "Valentina Vanegas Castaño <br> Edwar Jose Londoño Correa <br> Andres Castrillón Velasquez <br> Diego Andres Chavarria Riaño <br> Sebastian Rendon Arteaga"
+format: html
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,message = F,warning = F)
+```
+
+```{r}
+library(pander)
+
+#install.packages("corrplot")
+library(sjmisc)
+library(dplyr)
+library(stringr)
+library(caret)
+library(kableExtra)
+library(corrplot)
+```
+
+## 1- Contexto del problema
+
+El Departamento de Educación de los Estados Unidos pone a disposición del público información para tomar mejores decisiones en la elección de instituciones de educación. Esta información se encuentra almacenada en el dataset "CollegeScorecard.csv", publicado en el año 2016, las observaciones corresponden a la información de las diferentes instituciones educativas de dicho país y el dataset se compone de 7804 observaciones y 1725 variables como se observa en la Tabla 1.
+
+El objetivo de este proyecto es identificar dentro del dataset si existen grupos de observaciones que contengan similitud con base a las categorías con las que se van a trabajar.
+
+```{r}
+#Se carga el dataset
+data <- read.csv("CollegeScorecard.csv", encoding = "UTF-8")
+```
+
+```{r}
+size <- data.frame(Filas=nrow(data),Columnas = ncol(data))
+
+kable(size,caption = "Tamaño de los datos") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+```
+
+<center>**Tabla 1.** Tamaño del dataset</center>
+
+## 2- Procesamiento de los datos
+
+Para la depuración inicial de la base de datos se tomaron en cuenta las instituciones que están operando actualmente y que sean solamente presenciales. Luego seleccionamos las variables que queremos tomar en cuenta en nuestro estudio:
+
+\- Nombre de institución.
+
+\- Tipo_de_Entidad: Tipo de institución (Public, private nonprofit, private for-profit).
+
+\- Costo_Anual_Estudio: costo anual de estudio.
+
+\- Becados_Pell: porcentaje de estudiantes con beca "PELL".
+
+\- Estudiantes_Mayor_25: porcentaje de estudiantes mayores a 25 años.
+
+\- GananciaEstudiante: Ganancia de la universidad por estudiante.
+
+Luego, se procedió a revisar los valores nulos de las variables seleccionadas y se eliminaron.
+
+```{r}
+#Función para cambiar la variable control
+trans_variable_control <- function(p){
+  if (p==1){
+    valorNuevo <- "PUBLIC"
+  }else if(p==2){
+    valorNuevo <- "PRIVATE_NONPROFIT"
+  }else{
+    valorNuevo <- "PRIVATE_FOR_PROFIT"
+  }
+  return(valorNuevo)
+}
+
+
+# Depuración de los datos
+data <- subset(data, CURROPER !=0)
+data <- subset(data, DISTANCEONLY !=1)
+data <- subset(data, select = c(INSTNM,CONTROL,COSTT4_A,COSTT4_P,PCTPELL,UG25abv,TUITFTE))
+data <- data[(!is.na(data$COSTT4_A)) | (!is.na(data$COSTT4_P)), ]
+data <- subset(data, str_detect(data$INSTNM,"niversity")|str_detect(data$INSTNM,"ollege")|str_detect(data$INSTNM,"nstitu"))
+data <- data[(!is.na(data$TUITFTE)),]
+data <- data[(!is.na(data$UG25abv)),]
+data <- data[(!is.na(data$PCTPELL)),]
+data <- data[(!is.na(data$COSTT4_A)),]
+data <- subset(data,select = -c(COSTT4_P))
+data$CONTROL <- sapply(data$CONTROL, trans_variable_control)
+names(data) <- c('Institucion','Tipo_de_Entidad','Costo_Anual_Estudio','Becados_Pell','Estudiantes_Mayor_25','GananciaEstudiante')
+
+#Se convierte la variable Tipo_de_Entidad en tipo factor
+data$Tipo_de_Entidad <- as.factor(data$Tipo_de_Entidad)
+```
+
+```{r}
+#apply(X = is.na(data2), MARGIN = 2, FUN = sum)
+```
+
+Al realizar todo lo anterior, se obtiene la nueva dimención de los datos que se observa en la Tabla 2.
+
+```{r}
+size <- data.frame(Filas=nrow(data),Columnas = ncol(data))
+
+kable(size,caption = "Tamaño de los datos") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+```
+
+<center>**Tabla 2.** Tamaño del dataset depurado</center>
+
+## 3- Normalización de las variables
+
+Se normaliza la base de datos convirtiendo las variables categóricas en "dummies", se normalizan las variables de tipo numérica para transformarlas a escala de \[0,1\], y se elimina la variable "Institucion" para poder crear el modelo de agrupamiento.
+
+```{r}
+#Se crea una copia del dataset
+dataInicial<-data
+
+#Se divide el dataset en variable categoricas y variables numericas
+var_cat <- sapply(data,is.factor)
+data_cat <- data[var_cat]
+data_num <- data[!var_cat]
+data_num <- subset(data_num, select = -c(Institucion))
+
+#Se crean las variables dummies
+onehotencoding <- dummyVars(~.,data = data_cat)
+data_cat_dummy <- predict(onehotencoding,data_cat)
+data_cat_dummy <- as.data.frame(data_cat_dummy)
+names(data_cat_dummy) <- c("PRIVATE_FOR_PROFIT","PRIVATE_NONPROFIT", "PUBLIC")
+
+#Normalizacion de los datos numericos
+valor_max <- apply(data_num,2,max)
+valor_min <- apply(data_num,2,min)
+data_num_norm <- scale(data_num, center = valor_min,scale = (valor_max-valor_min))
+
+#Se unen los datos
+data_modelo <-as.data.frame(cbind(data_num_norm,data_cat_dummy))
+```
+
+De esta forma se obtiene el dataset que se muestra en la Tabla 3.
+
+```{r}
+encabezado <-head(data_modelo)
+kable(encabezado,caption = "Datos normalizados y convertidos en dummies") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+```
+
+<center>**Tabla 3**. Primero registros del dataset normalizado y con las variables dummies</center>
+
+## 4- Correlación entre las variables
+
+Se analiza el grado de correlación existente entre las variables con las que se esta trabajando, esto se puede ver en la Figura 1.
+
+```{r}
+correlacion<-round(cor(data_modelo), 1)
+
+corrplot(correlacion, method="number", type="upper")
+```
+
+<center>**Figura 1**. Correlación entre las variables de estudio</center>
+
+<br>
+
+Se puede observar que la correlación mas significativa es entre las variables "Costo_Anual_Estudio" y "GananciaEstudiante" que tiene un valor de 0.80.
+
+## 5- Modelo de agrupamiento
+
+Para el proyecto, se utilizará el metodo **K-Means**. Para esto primero se utilizará el **Método del Codo** (Elbow Method) para poder identificar el número óptimo de clusters.
+
+```{r}
+#Calculo de los valores WCSS (Within Clusters Summed Squares)
+set.seed(1234)
+wcss <- vector()
+for(i in 1:20){
+  wcss[i] <- sum(kmeans(data_modelo, i)$withinss)
+}
+
+# Se grafica los resultados obtenidos
+
+ggplot() + geom_point(aes(x = 1:20, y = wcss), color = 'black') + 
+  geom_line(aes(x = 1:20, y = wcss), color = 'red') + 
+  ggtitle("Método del Codo") + 
+  xlab('Cantidad de Centroides k') + 
+  ylab('WCSS')
+```
+
+<center>**Gráfica 1**. Método del codo para identificar número de cluster óptimo</center>
+
+<br>
+
+En la Gráfica 1, se puede observar que el número óptimo de clusters es 3, dicho valor sera empleado para el parámetro del modelo de agrupamiento. En la Tabla 4, podemos observar un resumen donde se observa el valor de la medía para cada variable numérica de acuerdo a cada grupo obtenido. Por otro lado, en la Tabla 5 podemos observar la cantidad por cada tipo de institución que hay en cada grupo.
+
+```{r}
+#Se crea el modelo
+agrupamiento <- kmeans(data_modelo, centers = 4)
+```
+
+```{r}
+# Se obtiene el resumen del agrupamiento
+dataInicial$Clasificacion <- agrupamiento$cluster
+var_cate <- sapply(dataInicial,is.factor)
+data_cate <- dataInicial[var_cate]
+data_cate$Clasificacion <- agrupamiento$cluster
+data_nume <- dataInicial[!var_cate]
+data_nume <- subset(data_nume, select = -c(Institucion))
+
+kable(aggregate(.~Clasificacion, data= data_nume, mean),caption = "Resumen de la media de las variables numéricas en cada grupo") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+```
+
+<center>**Tabla 4**. Resumen de las variables numéricas para grupo</center>
+
+<br>
+
+```{r}
+conteo <- count(data_cate,data_cate$Clasificacion, data_cate$Tipo_de_Entidad)
+colnames(conteo) <- c("Clasificacion", "Tipo_de_Entidad", "Cantidad")
+
+kable(conteo,caption = "Conteo de tipo de institución por grupo") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+```
+
+<center>**Tabla 5**. Conteo de tipo de institución por grupo</center>
+
+<br>
+
+```{r}
+#Se crean los grupos de acuerdo a la clasificación obtenida
+grupo1 <- subset(dataInicial, dataInicial$Clasificacion==1)
+#grupo1_inst <- grupo1$Institucion
+#grupo1 <- subset(grupo1, select = -c(Institucion))
+
+grupo2 <- subset(dataInicial, dataInicial$Clasificacion==2)
+#grupo2_inst <- grupo2$Institucion
+#grupo2 <- subset(grupo2, select = -c(Institucion))
+
+grupo3 <- subset(dataInicial, dataInicial$Clasificacion==3)
+#grupo3_inst <- grupo3$Institucion
+#grupo3 <- subset(grupo3, select = -c(Institucion))
+```
+
+## Conclusión
