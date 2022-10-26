@@ -230,16 +230,106 @@ kable(conteo,caption = "Conteo de tipo de institución por grupo") %>%
 ```{r}
 #Se crean los grupos de acuerdo a la clasificación obtenida
 grupo1 <- subset(dataInicial, dataInicial$Clasificacion==1)
-#grupo1_inst <- grupo1$Institucion
-#grupo1 <- subset(grupo1, select = -c(Institucion))
+grupo1_inst <- grupo1$Institucion
+grupo1 <- subset(grupo1, select = -c(Institucion))
 
 grupo2 <- subset(dataInicial, dataInicial$Clasificacion==2)
-#grupo2_inst <- grupo2$Institucion
-#grupo2 <- subset(grupo2, select = -c(Institucion))
+grupo2_inst <- grupo2$Institucion
+grupo2 <- subset(grupo2, select = -c(Institucion))
 
 grupo3 <- subset(dataInicial, dataInicial$Clasificacion==3)
-#grupo3_inst <- grupo3$Institucion
-#grupo3 <- subset(grupo3, select = -c(Institucion))
+grupo3_inst <- grupo3$Institucion
+grupo3 <- subset(grupo3, select = -c(Institucion))
+
+grupo4 <- subset(dataInicial, dataInicial$Clasificacion==4)
+grupo4_inst <- grupo4$Institucion
+grupo4 <- subset(grupo4, select = -c(Institucion))
 ```
 
-## Conclusión
+En las Tablas 6, 7, 8, 9 podemos ver un resumen mas detallado por cada grupo. En estos resumen se presentan datos estadísticos de las variables numéricas y las frecuencias de las variables categóricas.
+
+```{r}
+#Resumen del grupo 1
+kable(summary(grupo1),caption = "Resumen del grupo 1") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+
+grupo1$Institucion <- grupo1_inst
+```
+
+<center>**Tabla 6**. Datos estadísticos para las variables del grupo 1</center>
+
+<br>
+
+```{r}
+#Resumen del grupo 2
+kable(summary(grupo2),caption = "Resumen del grupo 2") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+
+grupo2$Institucion <- grupo2_inst
+```
+
+<center>**Tabla 7**. Datos estadísticos para las variables del grupo 2</center>
+
+<br>
+
+```{r}
+#Resumen del grupo 3
+kable(summary(grupo3),caption = "Resumen del grupo 3") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+
+grupo3$Institucion <- grupo3_inst
+```
+
+<center>**Tabla 8**. Datos estadísticos para las variables del grupo 3</center>
+
+<br>
+
+```{r}
+#Resumen del grupo 4
+kable(summary(grupo4),caption = "Resumen del grupo 4") %>% 
+  kable_styling(full_width = F,position = "center") %>% 
+  kable_minimal()
+
+grupo4$Institucion <- grupo4_inst
+```
+
+<center>**Tabla 9**. Datos estadísticos para las variables del grupo 4</center>
+
+<br>
+
+## 6- Análisis de los resultados
+
+-   En cada grupo se puede identificar que existe solo un tipo de institución. En el grupo 1 solo existen instituciones de tipo "privado para lucro", en el grupo 2 solo existen instituciones de tipo "privado sin fines de lucro", en el grupo 3 solo existen instituciones de tipo "privado sin fines de lucro", y en el grupo 4 solo existen instituciones de tipo "públicas".
+
+-   El grupo 1 posee el valor promedio más alto en las variables "**Becados_Pell**" y "**Estudiantes_Mayor_25**".
+
+-   El grupo 3 posee el valor promedio más alto en las variables "**Costo_Anual_Estudio**" y "**GananciaEstudiante**".
+
+-   El grupo 4 posee el valor promedio más bajo en las variables "**Costo_Anual_Estudio**" y "**GananciaEstudiante**".
+
+-   El grupo 2 posee el segundo valor promedio más bajo en las variables "**Costo_Anual_Estudio**" y "**GananciaEstudiante**", y posee el segundo valor promedio más alto en las variables "**Becados_Pell**" y "**Estudiantes_Mayor_25**".
+
+## 7- Conclusiones
+
+Con los anteriores análisis se puede concluir:
+
+1.  Si un usuario aspira a una beca "PELL", debería seleccionar universidades que se encuentren en el grupo 1 o 2, ya que estos grupos poseen un porcentaje promedio alto de estudiantes con este tipo de beca. Esta decisión aplica también si se desea estudiar con estudiantes mayores a 25 años, ya que estos dos grupos posee un alto porcentaje promedio de estudiantes con esta característica.
+
+2.  Si un usuario desea escoger una universidad que presenten un menor costo anual promedio, debería seleccionar universidades que se encuentren en el grupo 4, el cual todas las instituciones son de tipo pública.
+
+3.   Se desea estudiar en un instituto que presente un alto costo anual promedio y que presente menor porcentaje promedio de estudiantes mayores a 25 años y estudiantes becados de tipo PELL, debería seleccionar instituciones del grupo 3. En este grupo, todas las instituciones poseen son de tipo privada sin fines de lucro.
+
+## 8- Referencias
+
+-   Delgado, R.. (2018). Introducción a los Modelos de Agrupamiento (Clustering) en R. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/rdelgado/399475
+
+-   R CODER. (2022). Aggregate en R. 2022, octubre 19, de R CODER. Sitio web: https://r-coder.com/aggregate-en-r/
+
+-   Amat, J.. (2017). Clustering y heatmaps: aprendizaje no supervisado. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/Joaquin_AR/310338
+
+
+
+
