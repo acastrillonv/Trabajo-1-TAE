@@ -322,7 +322,11 @@ Con los anteriores análisis se puede concluir:
 
 3.   Se desea estudiar en un instituto que presente un alto costo anual promedio y que presente menor porcentaje promedio de estudiantes mayores a 25 años y estudiantes becados de tipo PELL, debería seleccionar instituciones del grupo 3. En este grupo, todas las instituciones poseen son de tipo privada sin fines de lucro.
 
-## 8- Referencias
+## 8- Propuesta
+
+Falta corregir esto
+
+## 9- Referencias
 
 -   Delgado, R.. (2018). Introducción a los Modelos de Agrupamiento (Clustering) en R. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/rdelgado/399475
 
