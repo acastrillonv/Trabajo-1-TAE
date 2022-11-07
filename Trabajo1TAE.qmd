@@ -23,9 +23,13 @@ library(corrplot)
 
 ## 1- Contexto del problema
 
-El Departamento de Educación de los Estados Unidos pone a disposición del público información para tomar mejores decisiones en la elección de instituciones de educación. Esta información se encuentra almacenada en el dataset "CollegeScorecard.csv", publicado en el año 2016, las observaciones corresponden a la información de las diferentes instituciones educativas de dicho país y el dataset se compone de 7804 observaciones y 1725 variables como se observa en la Tabla 1.
+En este trabajo se pretende abordar la problemática que presentan los usuarios cuando desean adquirir una educación universitaria: "¿Qué universidad escoger?", "'¿Cuál se adapta mejor a mis requerimientos?".
 
-El objetivo de este proyecto es identificar dentro del dataset si existen grupos de observaciones que contengan similitud con base a las categorías con las que se van a trabajar.
+Para esto, se hara uso de una base de datos puesta a disposición para el público del Departamento de Educación de los Estados Unidos. El nombre del dataset es "CollegeScorecard.csv", el cual fué publicado en el año 2016. Cada registro corresponde a la información de las diferentes instituciones educativas de dicho país. El dataset se compone de 7804 observaciones y 1725 variables como se observa en la Tabla 1.
+
+El objetivo de este proyecto es segmentar la información del dataset, con el fin de poder identificar que instituciones comparten cierta similitud de acuerdo a las características con las que se van a utilizar. Para lograr nuestro objetivo, utilizaremos un trabajo realizado por Delgado (2018), en el cual hacen uso de librerias y metodologías que nos sirven de base para poder crear nuestro modelo, y también se hara uso de los conceptos aplicados en el trabajo realizado por Amat (2017), sobre "Clustering y heatmaps: aprendizaje no supervisado".
+
+Con la realización de este trabajo, se espera poder ayudar a los usuarios de Estados Unidos a poder seleccionar una institución de Educación Superior para estudiar, mostrando las características de los grupos que se identifiquen.
 
 ```{r}
 #Se carga el dataset
@@ -314,13 +318,11 @@ grupo4$Institucion <- grupo4_inst
 
 ## 7- Conclusiones
 
-Con los anteriores análisis se puede concluir:
-
 1.  Si un usuario aspira a una beca "PELL", debería seleccionar universidades que se encuentren en el grupo 1 o 2, ya que estos grupos poseen un porcentaje promedio alto de estudiantes con este tipo de beca. Esta decisión aplica también si se desea estudiar con estudiantes mayores a 25 años, ya que estos dos grupos posee un alto porcentaje promedio de estudiantes con esta característica.
 
 2.  Si un usuario desea escoger una universidad que presenten un menor costo anual promedio, debería seleccionar universidades que se encuentren en el grupo 4, el cual todas las instituciones son de tipo pública.
 
-3.   Se desea estudiar en un instituto que presente un alto costo anual promedio y que presente menor porcentaje promedio de estudiantes mayores a 25 años y estudiantes becados de tipo PELL, debería seleccionar instituciones del grupo 3. En este grupo, todas las instituciones poseen son de tipo privada sin fines de lucro.
+3.  Se desea estudiar en un instituto que presente un alto costo anual promedio y que presente menor porcentaje promedio de estudiantes mayores a 25 años y estudiantes becados de tipo PELL, debería seleccionar instituciones del grupo 3. En este grupo, todas las instituciones poseen son de tipo privada sin fines de lucro.
 
 ## 8- Propuesta
 
@@ -330,10 +332,4 @@ Falta corregir esto
 
 -   Delgado, R.. (2018). Introducción a los Modelos de Agrupamiento (Clustering) en R. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/rdelgado/399475
 
--   R CODER. (2022). Aggregate en R. 2022, octubre 19, de R CODER. Sitio web: https://r-coder.com/aggregate-en-r/
-
 -   Amat, J.. (2017). Clustering y heatmaps: aprendizaje no supervisado. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/Joaquin_AR/310338
-
-
-
-
