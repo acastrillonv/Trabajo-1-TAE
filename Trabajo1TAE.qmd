@@ -81,23 +81,27 @@ trans_variable_control <- function(p){
 # Depuración de los datos
 data <- subset(data, CURROPER !=0)
 data <- subset(data, DISTANCEONLY !=1)
-data <- subset(data, select = c(INSTNM,CONTROL,COSTT4_A,COSTT4_P,PCTPELL,UG25abv,TUITFTE))
+data <- subset(data, select = c(INSTNM,CONTROL,COSTT4_A,COSTT4_P,PCTPELL,UG25abv,TUITFTE,LATITUDE,LONGITUDE))
 data <- data[(!is.na(data$COSTT4_A)) | (!is.na(data$COSTT4_P)), ]
 data <- subset(data, str_detect(data$INSTNM,"niversity")|str_detect(data$INSTNM,"ollege")|str_detect(data$INSTNM,"nstitu"))
+
 data <- data[(!is.na(data$TUITFTE)),]
 data <- data[(!is.na(data$UG25abv)),]
 data <- data[(!is.na(data$PCTPELL)),]
 data <- data[(!is.na(data$COSTT4_A)),]
+data <- data[(!is.na(data$LATITUDE)),]
+data <- data[(!is.na(data$LONGITUDE)),]
+
 data <- subset(data,select = -c(COSTT4_P))
 data$CONTROL <- sapply(data$CONTROL, trans_variable_control)
-names(data) <- c('Institucion','Tipo_de_Entidad','Costo_Anual_Estudio','Becados_Pell','Estudiantes_Mayor_25','GananciaEstudiante')
+names(data) <- c('Institucion','Tipo_de_Entidad','Costo_Anual_Estudio','Becados_Pell','Estudiantes_Mayor_25','GananciaEstudiante', "Latitud", "Longitud")
 
 #Se convierte la variable Tipo_de_Entidad en tipo factor
 data$Tipo_de_Entidad <- as.factor(data$Tipo_de_Entidad)
 ```
 
 ```{r}
-#apply(X = is.na(data2), MARGIN = 2, FUN = sum)
+#apply(X = is.na(data), MARGIN = 2, FUN = sum)
 ```
 
 Al realizar todo lo anterior, se obtiene la nueva dimención de los datos que se observa en la Tabla 2.
@@ -119,6 +123,7 @@ Se normaliza la base de datos convirtiendo las variables categóricas en "dummie
 ```{r}
 #Se crea una copia del dataset
 dataInicial<-data
+data <- subset(data, select = -c(Latitud, Longitud))
 
 #Se divide el dataset en variable categoricas y variables numericas
 var_cat <- sapply(data,is.factor)
@@ -203,11 +208,12 @@ agrupamiento <- kmeans(data_modelo, centers = 4)
 ```{r}
 # Se obtiene el resumen del agrupamiento
 dataInicial$Clasificacion <- agrupamiento$cluster
+
 var_cate <- sapply(dataInicial,is.factor)
 data_cate <- dataInicial[var_cate]
 data_cate$Clasificacion <- agrupamiento$cluster
 data_nume <- dataInicial[!var_cate]
-data_nume <- subset(data_nume, select = -c(Institucion))
+data_nume <- subset(data_nume, select = -c(Institucion, Latitud, Longitud))
 
 kable(aggregate(.~Clasificacion, data= data_nume, mean),caption = "Resumen de la media de las variables numéricas en cada grupo") %>% 
   kable_styling(full_width = F,position = "center") %>% 
@@ -235,19 +241,19 @@ kable(conteo,caption = "Conteo de tipo de institución por grupo") %>%
 #Se crean los grupos de acuerdo a la clasificación obtenida
 grupo1 <- subset(dataInicial, dataInicial$Clasificacion==1)
 grupo1_inst <- grupo1$Institucion
-grupo1 <- subset(grupo1, select = -c(Institucion))
+grupo1 <- subset(grupo1, select = -c(Institucion, Latitud, Longitud))
 
 grupo2 <- subset(dataInicial, dataInicial$Clasificacion==2)
 grupo2_inst <- grupo2$Institucion
-grupo2 <- subset(grupo2, select = -c(Institucion))
+grupo2 <- subset(grupo2, select = -c(Institucion, Latitud, Longitud))
 
 grupo3 <- subset(dataInicial, dataInicial$Clasificacion==3)
 grupo3_inst <- grupo3$Institucion
-grupo3 <- subset(grupo3, select = -c(Institucion))
+grupo3 <- subset(grupo3, select = -c(Institucion, Latitud, Longitud))
 
 grupo4 <- subset(dataInicial, dataInicial$Clasificacion==4)
 grupo4_inst <- grupo4$Institucion
-grupo4 <- subset(grupo4, select = -c(Institucion))
+grupo4 <- subset(grupo4, select = -c(Institucion, Latitud, Longitud))
 ```
 
 En las Tablas 6, 7, 8, 9 podemos ver un resumen mas detallado por cada grupo. En estos resumen se presentan datos estadísticos de las variables numéricas y las frecuencias de las variables categóricas.
