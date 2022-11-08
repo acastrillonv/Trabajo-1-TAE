@@ -326,7 +326,9 @@ grupo4$Institucion <- grupo4_inst
 
 ## 8- Propuesta
 
-Falta corregir esto
+En el siguiente link podemos encontrar información relacionada a las instituciones del pais seccionadas por "Educación preescolar, básica y media", "Educación superior", "Educación para el trabajo y desarrollo humano". Dentro de cada una de estas secciones podemos encontrar una gran cantidad de datos que nos servirían para identificar o clasificar que instituciones educativas son mejores. Si nos detenemos en la sección de "Educación superior" podemos observar que hay datos sobre la cantidad de programas curriculares, estadísticas de matrícula por municipios, por departamentos, podemos ver que instituciones cuentan con acreditación, si son públicas o privadas, etc. A continuación podemos realizar un procedimiento similar al realizado en este documento, seleccionando las variables que se consideren relevantes para clasificar las instituciones en un escalafón particular definido por las persona que realiza el estudio.
+
+https://www.mineducacion.gov.co/portal/Ministerio/Informacion-Institucional/349303:Datos-Abiertos
 
 ## 9- Referencias
 
