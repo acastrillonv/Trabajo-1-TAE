@@ -81,7 +81,7 @@ trans_variable_control <- function(p){
 # Depuración de los datos
 data <- subset(data, CURROPER !=0)
 data <- subset(data, DISTANCEONLY !=1)
-data <- subset(data, select = c(INSTNM,CONTROL,COSTT4_A,COSTT4_P,PCTPELL,UG25abv,TUITFTE,LATITUDE,LONGITUDE))
+data <- subset(data, select = c(INSTNM,CONTROL,COSTT4_A,COSTT4_P,PCTPELL,UG25abv,TUITFTE,LATITUDE,LONGITUDE, region))
 data <- data[(!is.na(data$COSTT4_A)) | (!is.na(data$COSTT4_P)), ]
 data <- subset(data, str_detect(data$INSTNM,"niversity")|str_detect(data$INSTNM,"ollege")|str_detect(data$INSTNM,"nstitu"))
 
@@ -94,10 +94,16 @@ data <- data[(!is.na(data$LONGITUDE)),]
 
 data <- subset(data,select = -c(COSTT4_P))
 data$CONTROL <- sapply(data$CONTROL, trans_variable_control)
-names(data) <- c('Institucion','Tipo_de_Entidad','Costo_Anual_Estudio','Becados_Pell','Estudiantes_Mayor_25','GananciaEstudiante', "Latitud", "Longitud")
+names(data) <- c('Institucion','Tipo_de_Entidad','Costo_Anual_Estudio','Becados_Pell','Estudiantes_Mayor_25','GananciaEstudiante', "Latitud", "Longitud", "Region")
 
 #Se convierte la variable Tipo_de_Entidad en tipo factor
 data$Tipo_de_Entidad <- as.factor(data$Tipo_de_Entidad)
+
+#Se eliminan los registros que no sean de Estados Unidos
+inf <- which(data$Region==9)
+data <- data[-inf,]
+
+data <- subset(data, select = -c(Region))
 ```
 
 ```{r}
@@ -312,23 +318,25 @@ grupo4$Institucion <- grupo4_inst
 
 ## 6- Análisis de los resultados
 
--   En cada grupo se puede identificar que existe solo un tipo de institución. En el grupo 1 solo existen instituciones de tipo "privado para lucro", en el grupo 2 solo existen instituciones de tipo "privado sin fines de lucro", en el grupo 3 solo existen instituciones de tipo "privado sin fines de lucro", y en el grupo 4 solo existen instituciones de tipo "públicas".
+-   En los grupos 1, 3 y 4 existe solo un tipo de institución. En el grupo 1 solo existen instituciones de tipo "pública", al igual que en el grupo 3 y 4. En el grupo 2 se encuentran instituciones de tipo "privado sin fines de lucro" y "privado con fines de lucro".
 
--   El grupo 1 posee el valor promedio más alto en las variables "**Becados_Pell**" y "**Estudiantes_Mayor_25**".
+-   El grupo 1 posee el valor promedio más bajo en la variable "**Estudiantes_Mayor_25**".
 
--   El grupo 3 posee el valor promedio más alto en las variables "**Costo_Anual_Estudio**" y "**GananciaEstudiante**".
+-   El grupo 2 posee el valor promedio más alto en las variables "**Costo_Anual_Estudio**", "**Estudiantes_Mayor_25"** y "**GananciaEstudiante**".
 
--   El grupo 4 posee el valor promedio más bajo en las variables "**Costo_Anual_Estudio**" y "**GananciaEstudiante**".
+-   El grupo 3 posee el valor promedio más bajo en las variables "**Costo_Anual_Estudio**" y"**GananciaEstudiante**".
 
--   El grupo 2 posee el segundo valor promedio más bajo en las variables "**Costo_Anual_Estudio**" y "**GananciaEstudiante**", y posee el segundo valor promedio más alto en las variables "**Becados_Pell**" y "**Estudiantes_Mayor_25**".
+-   El grupo 4 posee el valor promedio más alto en la variable "**Becados_Pell**".
 
 ## 7- Conclusiones
 
-1.  Si un usuario aspira a una beca "PELL", debería seleccionar universidades que se encuentren en el grupo 1 o 2, ya que estos grupos poseen un porcentaje promedio alto de estudiantes con este tipo de beca. Esta decisión aplica también si se desea estudiar con estudiantes mayores a 25 años, ya que estos dos grupos posee un alto porcentaje promedio de estudiantes con esta característica.
+1.  Si un usuario aspira a una beca "PELL", debería seleccionar universidades que se encuentren en el grupo 4 o 2, ya que estos grupos poseen un porcentaje promedio alto de estudiantes con este tipo de beca.
 
-2.  Si un usuario desea escoger una universidad que presenten un menor costo anual promedio, debería seleccionar universidades que se encuentren en el grupo 4, el cual todas las instituciones son de tipo pública.
+2.  Si se desea estudiar con estudiantes mayores a 25 años, se debería seleccionar instituciones que se encuentren en los grupos 2, 3 y 4, ya que estos posee un alto porcentaje promedio de estudiantes con esta característica.
 
-3.  Se desea estudiar en un instituto que presente un alto costo anual promedio y que presente menor porcentaje promedio de estudiantes mayores a 25 años y estudiantes becados de tipo PELL, debería seleccionar instituciones del grupo 3. En este grupo, todas las instituciones poseen son de tipo privada sin fines de lucro.
+3.  Si un usuario desea escoger una universidad que presenten un menor costo anual promedio, debería seleccionar universidades que se encuentren en los grupos 3 o 4, los cuales en ambos todas las instituciones son de tipo pública.
+
+4.  Si desea estudiar en un instituto que presente un alto costo anual promedio y un alto porcentaje promedio de ganancias por estudiante, se debe escoger instituciones que esten en el grupo 2.
 
 ## 8- Propuesta
 
