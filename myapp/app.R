@@ -153,8 +153,8 @@ server <- function(input, output) {
     
     
     leaflet(dataView) %>% addTiles() %>% setView(lng = -93.85, lat = 37.45, zoom = 4)%>%
-      addCircles(lng = ~Longitud, lat = ~Latitud, weight = 1,
-                 radius = ~sqrt(Costo_Anual_Estudio)*5)
+      addCircles(lng = ~Longitud, lat = ~Latitud, weight = 0.5,
+                 radius = 1000, popup = paste(dataView$Institucion," | $",dataView$Costo_Anual_Estudio))
     
   })
 }
