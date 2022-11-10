@@ -322,7 +322,7 @@ grupo4$Institucion <- grupo4_inst
 
 -   El grupo 1 posee el valor promedio más bajo en la variable "**Estudiantes_Mayor_25**".
 
--   El grupo 2 posee el valor promedio más alto en las variables "**Costo_Anual_Estudio**", "**Estudiantes_Mayor_25"** y "**GananciaEstudiante**".
+-   El grupo 2 posee el valor promedio más alto en las variables "**Costo_Anual_Estudio**", "**Estudiantes_Mayor_25"** y"**GananciaEstudiante**".
 
 -   El grupo 3 posee el valor promedio más bajo en las variables "**Costo_Anual_Estudio**" y"**GananciaEstudiante**".
 
