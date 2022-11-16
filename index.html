@@ -2,20 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Valentina Vanegas Castaño   Edwar Jose Londoño Correa   Andres Castrillón Velasquez   Diego Andres Chavarria Riaño   Sebastian Rendon Arteaga">
 
-<title>quarto-inputf706ff90</title>
+<title> ¶ Análisis de las instituciones educativas de los Estados Unidos ¶ </title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -44,9 +49,7 @@ ul.task-list{list-style: none;}
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><center>
-Análisis de las instituciones educativas de los Estados Unidos
-</center></h1>
+<h1 class="title"><center> ¶ Análisis de las instituciones educativas de los Estados Unidos ¶ </center></h1>
 </div>
 
 
@@ -689,19 +692,20 @@ Análisis de las instituciones educativas de los Estados Unidos
 <section id="análisis-de-los-resultados" class="level2">
 <h2 class="anchored" data-anchor-id="análisis-de-los-resultados">6- Análisis de los resultados</h2>
 <ul>
-<li><p>En cada grupo se puede identificar que existe solo un tipo de institución. En el grupo 1 solo existen instituciones de tipo “privado para lucro”, en el grupo 2 solo existen instituciones de tipo “privado sin fines de lucro”, en el grupo 3 solo existen instituciones de tipo “privado sin fines de lucro”, y en el grupo 4 solo existen instituciones de tipo “públicas”.</p></li>
-<li><p>El grupo 1 posee el valor promedio más alto en las variables “<strong>Becados_Pell</strong>” y “<strong>Estudiantes_Mayor_25</strong>”.</p></li>
-<li><p>El grupo 3 posee el valor promedio más alto en las variables “<strong>Costo_Anual_Estudio</strong>” y “<strong>GananciaEstudiante</strong>”.</p></li>
-<li><p>El grupo 4 posee el valor promedio más bajo en las variables “<strong>Costo_Anual_Estudio</strong>” y “<strong>GananciaEstudiante</strong>”.</p></li>
-<li><p>El grupo 2 posee el segundo valor promedio más bajo en las variables “<strong>Costo_Anual_Estudio</strong>” y “<strong>GananciaEstudiante</strong>”, y posee el segundo valor promedio más alto en las variables “<strong>Becados_Pell</strong>” y “<strong>Estudiantes_Mayor_25</strong>”.</p></li>
+<li><p>En los grupos 1, 3 y 4 existe solo un tipo de institución. En el grupo 1 solo existen instituciones de tipo “pública”, al igual que en el grupo 3 y 4. En el grupo 2 se encuentran instituciones de tipo “privado sin fines de lucro” y “privado con fines de lucro”.</p></li>
+<li><p>El grupo 1 posee el valor promedio más bajo en la variable “<strong>Estudiantes_Mayor_25</strong>”.</p></li>
+<li><p>El grupo 2 posee el valor promedio más alto en las variables “<strong>Costo_Anual_Estudio</strong>”, “<strong>Estudiantes_Mayor_25”</strong> y”<strong>GananciaEstudiante</strong>”.</p></li>
+<li><p>El grupo 3 posee el valor promedio más bajo en las variables “<strong>Costo_Anual_Estudio</strong>” y”<strong>GananciaEstudiante</strong>”.</p></li>
+<li><p>El grupo 4 posee el valor promedio más alto en la variable “<strong>Becados_Pell</strong>”.</p></li>
 </ul>
 </section>
 <section id="conclusiones" class="level2">
 <h2 class="anchored" data-anchor-id="conclusiones">7- Conclusiones</h2>
 <ol type="1">
-<li><p>Si un usuario aspira a una beca “PELL”, debería seleccionar universidades que se encuentren en el grupo 1 o 2, ya que estos grupos poseen un porcentaje promedio alto de estudiantes con este tipo de beca. Esta decisión aplica también si se desea estudiar con estudiantes mayores a 25 años, ya que estos dos grupos posee un alto porcentaje promedio de estudiantes con esta característica.</p></li>
-<li><p>Si un usuario desea escoger una universidad que presenten un menor costo anual promedio, debería seleccionar universidades que se encuentren en el grupo 4, el cual todas las instituciones son de tipo pública.</p></li>
-<li><p>Se desea estudiar en un instituto que presente un alto costo anual promedio y que presente menor porcentaje promedio de estudiantes mayores a 25 años y estudiantes becados de tipo PELL, debería seleccionar instituciones del grupo 3. En este grupo, todas las instituciones poseen son de tipo privada sin fines de lucro.</p></li>
+<li><p>Si un usuario aspira a una beca “PELL”, debería seleccionar universidades que se encuentren en el grupo 4 o 2, ya que estos grupos poseen un porcentaje promedio alto de estudiantes con este tipo de beca.</p></li>
+<li><p>Si se desea estudiar con estudiantes mayores a 25 años, se debería seleccionar instituciones que se encuentren en los grupos 2, 3 y 4, ya que estos posee un alto porcentaje promedio de estudiantes con esta característica.</p></li>
+<li><p>Si un usuario desea escoger una universidad que presenten un menor costo anual promedio, debería seleccionar universidades que se encuentren en los grupos 3 o 4, los cuales en ambos todas las instituciones son de tipo pública.</p></li>
+<li><p>Si desea estudiar en un instituto que presente un alto costo anual promedio y un alto porcentaje promedio de ganancias por estudiante, se debe escoger instituciones que esten en el grupo 2.</p></li>
 </ol>
 </section>
 <section id="propuesta" class="level2">
@@ -715,6 +719,9 @@ Análisis de las instituciones educativas de los Estados Unidos
 <li><p>Delgado, R.. (2018). Introducción a los Modelos de Agrupamiento (Clustering) en R. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/rdelgado/399475</p></li>
 <li><p>Amat, J.. (2017). Clustering y heatmaps: aprendizaje no supervisado. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/Joaquin_AR/310338</p></li>
 </ul>
+<div class="cell">
+
+</div>
 </section>
 
 </main>
@@ -788,7 +795,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

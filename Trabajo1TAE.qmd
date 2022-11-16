@@ -353,25 +353,8 @@ https://www.mineducacion.gov.co/portal/Ministerio/Informacion-Institucional/3493
 -   Amat, J.. (2017). Clustering y heatmaps: aprendizaje no supervisado. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/Joaquin_AR/310338
 
 ```{r}
-
-#Ejemplo
-
-
-prueba <- data_modelo[10,]
-prediccion <- as.data.frame(predict(agrupamiento, prueba))
-colnames(prediccion) <- c("Grupo")
-
-a1 <- 0
-a2 <- 0
-a3 <- 0
-a4 <- 0
-a5 <- 0
-a6 <- 0
-a7 <- 1
-prueba2<- data.frame(a1,a2,a3,a4,a5,a6,a7)
-#Normalizar para predecir
-
-
-prediccion2 <- as.data.frame(predict(agrupamiento, prueba2))
-colnames(prediccion2) <- c("Grupo")
+# Para la aplicación se guarda lo siguiente
+# save(valor_max, file = "valor_max.RData")
+# save(valor_min, file = "valor_min.RData")
+# save(agrupamiento, file = "agrupamiento.RData")
 ```
