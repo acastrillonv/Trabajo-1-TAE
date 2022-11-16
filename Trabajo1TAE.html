@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Valentina Vanegas Castaño   Edwar Jose Londoño Correa   Andres Castrillón Velasquez   Diego Andres Chavarria Riaño   Sebastian Rendon Arteaga">
+
+<title>quarto-inputf193b73f</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="Trabajo1TAE_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Trabajo1TAE_files/libs/quarto-html/quarto.js"></script>
+<script src="Trabajo1TAE_files/libs/quarto-html/popper.min.js"></script>
+<script src="Trabajo1TAE_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Trabajo1TAE_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Trabajo1TAE_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Trabajo1TAE_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Trabajo1TAE_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Trabajo1TAE_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Trabajo1TAE_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="Trabajo1TAE_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="Trabajo1TAE_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><center>
+Análisis de las instituciones educativas de los Estados Unidos
+</center></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Valentina Vanegas Castaño <br> Edwar Jose Londoño Correa <br> Andres Castrillón Velasquez <br> Diego Andres Chavarria Riaño <br> Sebastian Rendon Arteaga </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<section id="contexto-del-problema" class="level2">
+<h2 class="anchored" data-anchor-id="contexto-del-problema">1- Contexto del problema</h2>
+<p>En este trabajo se pretende abordar la problemática que presentan los usuarios cuando desean adquirir una educación universitaria: “¿Qué universidad escoger?”, “’¿Cuál se adapta mejor a mis requerimientos?”.</p>
+<p>Para esto, se hara uso de una base de datos puesta a disposición para el público del Departamento de Educación de los Estados Unidos. El nombre del dataset es “CollegeScorecard.csv”, el cual fué publicado en el año 2016. Cada registro corresponde a la información de las diferentes instituciones educativas de dicho país. El dataset se compone de 7804 observaciones y 1725 variables como se observa en la Tabla 1.</p>
+<p>El objetivo de este proyecto es segmentar la información del dataset, con el fin de poder identificar que instituciones comparten cierta similitud de acuerdo a las características con las que se van a utilizar. Para lograr nuestro objetivo, utilizaremos un trabajo realizado por Delgado (2018), en el cual hacen uso de librerias y metodologías que nos sirven de base para poder crear nuestro modelo, y también se hara uso de los conceptos aplicados en el trabajo realizado por Amat (2017), sobre “Clustering y heatmaps: aprendizaje no supervisado”.</p>
+<p>Con la realización de este trabajo, se espera poder ayudar a los usuarios de Estados Unidos a poder seleccionar una institución de Educación Superior para estudiar, mostrando las características de los grupos que se identifiquen.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Tamaño de los datos</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Filas </th>
+   <th style="text-align:right;"> Columnas </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 7804 </td>
+   <td style="text-align:right;"> 1725 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 1.</strong> Tamaño del dataset
+</center>
+</section>
+<section id="procesamiento-de-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="procesamiento-de-los-datos">2- Procesamiento de los datos</h2>
+<p>Para la depuración inicial de la base de datos se tomaron en cuenta las instituciones que están operando actualmente y que sean solamente presenciales. Luego seleccionamos las variables que queremos tomar en cuenta en nuestro estudio:</p>
+<p>- Nombre de institución.</p>
+<p>- Tipo_de_Entidad: Tipo de institución (Public, private nonprofit, private for-profit).</p>
+<p>- Costo_Anual_Estudio: costo anual de estudio.</p>
+<p>- Becados_Pell: porcentaje de estudiantes con beca “PELL”.</p>
+<p>- Estudiantes_Mayor_25: porcentaje de estudiantes mayores a 25 años.</p>
+<p>- GananciaEstudiante: Ganancia de la universidad por estudiante.</p>
+<p>Luego, se procedió a revisar los valores nulos de las variables seleccionadas y se eliminaron.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<p>Al realizar todo lo anterior, se obtiene la nueva dimención de los datos que se observa en la Tabla 2.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Tamaño de los datos</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Filas </th>
+   <th style="text-align:right;"> Columnas </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 3584 </td>
+   <td style="text-align:right;"> 8 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 2.</strong> Tamaño del dataset depurado
+</center>
+</section>
+<section id="normalización-de-las-variables" class="level2">
+<h2 class="anchored" data-anchor-id="normalización-de-las-variables">3- Normalización de las variables</h2>
+<p>Se normaliza la base de datos convirtiendo las variables categóricas en “dummies”, se normalizan las variables de tipo numérica para transformarlas a escala de [0,1], y se elimina la variable “Institucion” para poder crear el modelo de agrupamiento.</p>
+<div class="cell">
+
+</div>
+<p>De esta forma se obtiene el dataset que se muestra en la Tabla 3.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Datos normalizados y convertidos en dummies</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Costo_Anual_Estudio </th>
+   <th style="text-align:right;"> Becados_Pell </th>
+   <th style="text-align:right;"> Estudiantes_Mayor_25 </th>
+   <th style="text-align:right;"> GananciaEstudiante </th>
+   <th style="text-align:right;"> PRIVATE_FOR_PROFIT </th>
+   <th style="text-align:right;"> PRIVATE_NONPROFIT </th>
+   <th style="text-align:right;"> PUBLIC </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0.1986246 </td>
+   <td style="text-align:right;"> 0.7028224 </td>
+   <td style="text-align:right;"> 0.1044522 </td>
+   <td style="text-align:right;"> 0.1470488 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.2145123 </td>
+   <td style="text-align:right;"> 0.3309642 </td>
+   <td style="text-align:right;"> 0.2418209 </td>
+   <td style="text-align:right;"> 0.1465619 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.1036446 </td>
+   <td style="text-align:right;"> 0.6743923 </td>
+   <td style="text-align:right;"> 0.8539270 </td>
+   <td style="text-align:right;"> 0.1956377 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.2190681 </td>
+   <td style="text-align:right;"> 0.3078904 </td>
+   <td style="text-align:right;"> 0.2636318 </td>
+   <td style="text-align:right;"> 0.1350233 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.1771719 </td>
+   <td style="text-align:right;"> 0.8212814 </td>
+   <td style="text-align:right;"> 0.1265633 </td>
+   <td style="text-align:right;"> 0.1267628 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.3114962 </td>
+   <td style="text-align:right;"> 0.1869592 </td>
+   <td style="text-align:right;"> 0.0848424 </td>
+   <td style="text-align:right;"> 0.1979260 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 3</strong>. Primero registros del dataset normalizado y con las variables dummies
+</center>
+</section>
+<section id="correlación-entre-las-variables" class="level2">
+<h2 class="anchored" data-anchor-id="correlación-entre-las-variables">4- Correlación entre las variables</h2>
+<p>Se analiza el grado de correlación existente entre las variables con las que se esta trabajando, esto se puede ver en la Figura 1.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Trabajo1TAE_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<center>
+<strong>Figura 1</strong>. Correlación entre las variables de estudio
+</center>
+<p><br></p>
+<p>Se puede observar que la correlación mas significativa es entre las variables “Costo_Anual_Estudio” y “GananciaEstudiante” que tiene un valor de 0.80.</p>
+</section>
+<section id="modelo-de-agrupamiento" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-de-agrupamiento">5- Modelo de agrupamiento</h2>
+<p>Para el proyecto, se utilizará el metodo <strong>K-Means</strong>. Para esto primero se utilizará el <strong>Método del Codo</strong> (Elbow Method) para poder identificar el número óptimo de clusters.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Trabajo1TAE_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<center>
+<strong>Gráfica 1</strong>. Método del codo para identificar número de cluster óptimo
+</center>
+<p><br></p>
+<p>En la Gráfica 1, se puede observar que el número óptimo de clusters es 3, dicho valor sera empleado para el parámetro del modelo de agrupamiento. En la Tabla 4, podemos observar un resumen donde se observa el valor de la medía para cada variable numérica de acuerdo a cada grupo obtenido. Por otro lado, en la Tabla 5 podemos observar la cantidad por cada tipo de institución que hay en cada grupo.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Resumen de la media de las variables numéricas en cada grupo</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Clasificacion </th>
+   <th style="text-align:right;"> Costo_Anual_Estudio </th>
+   <th style="text-align:right;"> Becados_Pell </th>
+   <th style="text-align:right;"> Estudiantes_Mayor_25 </th>
+   <th style="text-align:right;"> GananciaEstudiante </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 20025.91 </td>
+   <td style="text-align:right;"> 0.3471556 </td>
+   <td style="text-align:right;"> 0.1498784 </td>
+   <td style="text-align:right;"> 7426.916 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 32230.22 </td>
+   <td style="text-align:right;"> 0.5188986 </td>
+   <td style="text-align:right;"> 0.3893259 </td>
+   <td style="text-align:right;"> 14672.203 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 12215.18 </td>
+   <td style="text-align:right;"> 0.3247165 </td>
+   <td style="text-align:right;"> 0.3733981 </td>
+   <td style="text-align:right;"> 2521.825 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 13109.55 </td>
+   <td style="text-align:right;"> 0.5663981 </td>
+   <td style="text-align:right;"> 0.3812687 </td>
+   <td style="text-align:right;"> 2650.824 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 4</strong>. Resumen de las variables numéricas para grupo
+</center>
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Conteo de tipo de institución por grupo</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Clasificacion </th>
+   <th style="text-align:left;"> Tipo_de_Entidad </th>
+   <th style="text-align:right;"> Cantidad </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> PUBLIC </td>
+   <td style="text-align:right;"> 439 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> PRIVATE_FOR_PROFIT </td>
+   <td style="text-align:right;"> 819 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> PRIVATE_NONPROFIT </td>
+   <td style="text-align:right;"> 1215 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> PUBLIC </td>
+   <td style="text-align:right;"> 593 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> PUBLIC </td>
+   <td style="text-align:right;"> 518 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 5</strong>. Conteo de tipo de institución por grupo
+</center>
+<p><br></p>
+<div class="cell">
+
+</div>
+<p>En las Tablas 6, 7, 8, 9 podemos ver un resumen mas detallado por cada grupo. En estos resumen se presentan datos estadísticos de las variables numéricas y las frecuencias de las variables categóricas.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Resumen del grupo 1</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">           Tipo_de_Entidad </th>
+   <th style="text-align:left;"> Costo_Anual_Estudio </th>
+   <th style="text-align:left;">  Becados_Pell </th>
+   <th style="text-align:left;"> Estudiantes_Mayor_25 </th>
+   <th style="text-align:left;"> GananciaEstudiante </th>
+   <th style="text-align:left;"> Clasificacion </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PRIVATE_FOR_PROFIT:  0 </td>
+   <td style="text-align:left;"> Min.   : 7098 </td>
+   <td style="text-align:left;"> Min.   :0.1175 </td>
+   <td style="text-align:left;"> Min.   :0.00240 </td>
+   <td style="text-align:left;"> Min.   :    9 </td>
+   <td style="text-align:left;"> Min.   :1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PRIVATE_NONPROFIT :  0 </td>
+   <td style="text-align:left;"> 1st Qu.:17409 </td>
+   <td style="text-align:left;"> 1st Qu.:0.2769 </td>
+   <td style="text-align:left;"> 1st Qu.:0.08905 </td>
+   <td style="text-align:left;"> 1st Qu.: 5117 </td>
+   <td style="text-align:left;"> 1st Qu.:1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PUBLIC            :439 </td>
+   <td style="text-align:left;"> Median :19965 </td>
+   <td style="text-align:left;"> Median :0.3480 </td>
+   <td style="text-align:left;"> Median :0.15140 </td>
+   <td style="text-align:left;"> Median : 6728 </td>
+   <td style="text-align:left;"> Median :1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Mean   :20026 </td>
+   <td style="text-align:left;"> Mean   :0.3472 </td>
+   <td style="text-align:left;"> Mean   :0.14988 </td>
+   <td style="text-align:left;"> Mean   : 7427 </td>
+   <td style="text-align:left;"> Mean   :1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> 3rd Qu.:22441 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.4163 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.20840 </td>
+   <td style="text-align:left;"> 3rd Qu.: 9352 </td>
+   <td style="text-align:left;"> 3rd Qu.:1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Max.   :33208 </td>
+   <td style="text-align:left;"> Max.   :0.6429 </td>
+   <td style="text-align:left;"> Max.   :0.33350 </td>
+   <td style="text-align:left;"> Max.   :24891 </td>
+   <td style="text-align:left;"> Max.   :1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 6</strong>. Datos estadísticos para las variables del grupo 1
+</center>
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Resumen del grupo 2</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">           Tipo_de_Entidad </th>
+   <th style="text-align:left;"> Costo_Anual_Estudio </th>
+   <th style="text-align:left;">  Becados_Pell </th>
+   <th style="text-align:left;"> Estudiantes_Mayor_25 </th>
+   <th style="text-align:left;"> GananciaEstudiante </th>
+   <th style="text-align:left;"> Clasificacion </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PRIVATE_FOR_PROFIT: 819 </td>
+   <td style="text-align:left;"> Min.   : 6753 </td>
+   <td style="text-align:left;"> Min.   :0.0292 </td>
+   <td style="text-align:left;"> Min.   :0.0005 </td>
+   <td style="text-align:left;"> Min.   :  145 </td>
+   <td style="text-align:left;"> Min.   :2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PRIVATE_NONPROFIT :1215 </td>
+   <td style="text-align:left;"> 1st Qu.:24358 </td>
+   <td style="text-align:left;"> 1st Qu.:0.3376 </td>
+   <td style="text-align:left;"> 1st Qu.:0.1110 </td>
+   <td style="text-align:left;"> 1st Qu.:10366 </td>
+   <td style="text-align:left;"> 1st Qu.:2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PUBLIC            :   0 </td>
+   <td style="text-align:left;"> Median :29338 </td>
+   <td style="text-align:left;"> Median :0.5033 </td>
+   <td style="text-align:left;"> Median :0.3756 </td>
+   <td style="text-align:left;"> Median :13810 </td>
+   <td style="text-align:left;"> Median :2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Mean   :32230 </td>
+   <td style="text-align:left;"> Mean   :0.5189 </td>
+   <td style="text-align:left;"> Mean   :0.3893 </td>
+   <td style="text-align:left;"> Mean   :14672 </td>
+   <td style="text-align:left;"> Mean   :2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> 3rd Qu.:39014 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.7108 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.6418 </td>
+   <td style="text-align:left;"> 3rd Qu.:18046 </td>
+   <td style="text-align:left;"> 3rd Qu.:2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Max.   :74473 </td>
+   <td style="text-align:left;"> Max.   :1.0000 </td>
+   <td style="text-align:left;"> Max.   :1.0000 </td>
+   <td style="text-align:left;"> Max.   :61621 </td>
+   <td style="text-align:left;"> Max.   :2 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 7</strong>. Datos estadísticos para las variables del grupo 2
+</center>
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Resumen del grupo 3</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">           Tipo_de_Entidad </th>
+   <th style="text-align:left;"> Costo_Anual_Estudio </th>
+   <th style="text-align:left;">  Becados_Pell </th>
+   <th style="text-align:left;"> Estudiantes_Mayor_25 </th>
+   <th style="text-align:left;"> GananciaEstudiante </th>
+   <th style="text-align:left;"> Clasificacion </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PRIVATE_FOR_PROFIT:  0 </td>
+   <td style="text-align:left;"> Min.   : 5827 </td>
+   <td style="text-align:left;"> Min.   :0.0754 </td>
+   <td style="text-align:left;"> Min.   :0.1823 </td>
+   <td style="text-align:left;"> Min.   :  262 </td>
+   <td style="text-align:left;"> Min.   :3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PRIVATE_NONPROFIT :  0 </td>
+   <td style="text-align:left;"> 1st Qu.:10289 </td>
+   <td style="text-align:left;"> 1st Qu.:0.2677 </td>
+   <td style="text-align:left;"> 1st Qu.:0.3035 </td>
+   <td style="text-align:left;"> 1st Qu.: 1263 </td>
+   <td style="text-align:left;"> 1st Qu.:3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PUBLIC            :593 </td>
+   <td style="text-align:left;"> Median :11931 </td>
+   <td style="text-align:left;"> Median :0.3373 </td>
+   <td style="text-align:left;"> Median :0.3560 </td>
+   <td style="text-align:left;"> Median : 2123 </td>
+   <td style="text-align:left;"> Median :3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Mean   :12215 </td>
+   <td style="text-align:left;"> Mean   :0.3247 </td>
+   <td style="text-align:left;"> Mean   :0.3734 </td>
+   <td style="text-align:left;"> Mean   : 2522 </td>
+   <td style="text-align:left;"> Mean   :3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> 3rd Qu.:13655 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.3917 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.4255 </td>
+   <td style="text-align:left;"> 3rd Qu.: 3327 </td>
+   <td style="text-align:left;"> 3rd Qu.:3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Max.   :24835 </td>
+   <td style="text-align:left;"> Max.   :0.4482 </td>
+   <td style="text-align:left;"> Max.   :0.8401 </td>
+   <td style="text-align:left;"> Max.   :12309 </td>
+   <td style="text-align:left;"> Max.   :3 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 8</strong>. Datos estadísticos para las variables del grupo 3
+</center>
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table lightable-minimal" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>Resumen del grupo 4</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">           Tipo_de_Entidad </th>
+   <th style="text-align:left;"> Costo_Anual_Estudio </th>
+   <th style="text-align:left;">  Becados_Pell </th>
+   <th style="text-align:left;"> Estudiantes_Mayor_25 </th>
+   <th style="text-align:left;"> GananciaEstudiante </th>
+   <th style="text-align:left;"> Clasificacion </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PRIVATE_FOR_PROFIT:  0 </td>
+   <td style="text-align:left;"> Min.   : 5111 </td>
+   <td style="text-align:left;"> Min.   :0.4369 </td>
+   <td style="text-align:left;"> Min.   :0.0915 </td>
+   <td style="text-align:left;"> Min.   :    2 </td>
+   <td style="text-align:left;"> Min.   :4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PRIVATE_NONPROFIT :  0 </td>
+   <td style="text-align:left;"> 1st Qu.:10937 </td>
+   <td style="text-align:left;"> 1st Qu.:0.4904 </td>
+   <td style="text-align:left;"> 1st Qu.:0.3066 </td>
+   <td style="text-align:left;"> 1st Qu.: 1314 </td>
+   <td style="text-align:left;"> 1st Qu.:4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> PUBLIC            :518 </td>
+   <td style="text-align:left;"> Median :12846 </td>
+   <td style="text-align:left;"> Median :0.5429 </td>
+   <td style="text-align:left;"> Median :0.3861 </td>
+   <td style="text-align:left;"> Median : 2286 </td>
+   <td style="text-align:left;"> Median :4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Mean   :13110 </td>
+   <td style="text-align:left;"> Mean   :0.5664 </td>
+   <td style="text-align:left;"> Mean   :0.3813 </td>
+   <td style="text-align:left;"> Mean   : 2651 </td>
+   <td style="text-align:left;"> Mean   :4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> 3rd Qu.:14622 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.6144 </td>
+   <td style="text-align:left;"> 3rd Qu.:0.4517 </td>
+   <td style="text-align:left;"> 3rd Qu.: 3476 </td>
+   <td style="text-align:left;"> 3rd Qu.:4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Max.   :25265 </td>
+   <td style="text-align:left;"> Max.   :0.9851 </td>
+   <td style="text-align:left;"> Max.   :0.7649 </td>
+   <td style="text-align:left;"> Max.   :10824 </td>
+   <td style="text-align:left;"> Max.   :4 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<center>
+<strong>Tabla 9</strong>. Datos estadísticos para las variables del grupo 4
+</center>
+<p><br></p>
+</section>
+<section id="análisis-de-los-resultados" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-de-los-resultados">6- Análisis de los resultados</h2>
+<ul>
+<li><p>En los grupos 1, 3 y 4 existe solo un tipo de institución. En el grupo 1 solo existen instituciones de tipo “pública”, al igual que en el grupo 3 y 4. En el grupo 2 se encuentran instituciones de tipo “privado sin fines de lucro” y “privado con fines de lucro”.</p></li>
+<li><p>El grupo 1 posee el valor promedio más bajo en la variable “<strong>Estudiantes_Mayor_25</strong>”.</p></li>
+<li><p>El grupo 2 posee el valor promedio más alto en las variables “<strong>Costo_Anual_Estudio</strong>”, “<strong>Estudiantes_Mayor_25”</strong> y”<strong>GananciaEstudiante</strong>”.</p></li>
+<li><p>El grupo 3 posee el valor promedio más bajo en las variables “<strong>Costo_Anual_Estudio</strong>” y”<strong>GananciaEstudiante</strong>”.</p></li>
+<li><p>El grupo 4 posee el valor promedio más alto en la variable “<strong>Becados_Pell</strong>”.</p></li>
+</ul>
+</section>
+<section id="conclusiones" class="level2">
+<h2 class="anchored" data-anchor-id="conclusiones">7- Conclusiones</h2>
+<ol type="1">
+<li><p>Si un usuario aspira a una beca “PELL”, debería seleccionar universidades que se encuentren en el grupo 4 o 2, ya que estos grupos poseen un porcentaje promedio alto de estudiantes con este tipo de beca.</p></li>
+<li><p>Si se desea estudiar con estudiantes mayores a 25 años, se debería seleccionar instituciones que se encuentren en los grupos 2, 3 y 4, ya que estos posee un alto porcentaje promedio de estudiantes con esta característica.</p></li>
+<li><p>Si un usuario desea escoger una universidad que presenten un menor costo anual promedio, debería seleccionar universidades que se encuentren en los grupos 3 o 4, los cuales en ambos todas las instituciones son de tipo pública.</p></li>
+<li><p>Si desea estudiar en un instituto que presente un alto costo anual promedio y un alto porcentaje promedio de ganancias por estudiante, se debe escoger instituciones que esten en el grupo 2.</p></li>
+</ol>
+</section>
+<section id="propuesta" class="level2">
+<h2 class="anchored" data-anchor-id="propuesta">8- Propuesta</h2>
+<p>En el siguiente link podemos encontrar información relacionada a las instituciones del pais seccionadas por “Educación preescolar, básica y media”, “Educación superior”, “Educación para el trabajo y desarrollo humano”. Dentro de cada una de estas secciones podemos encontrar una gran cantidad de datos que nos servirían para identificar o clasificar que instituciones educativas son mejores. Si nos detenemos en la sección de “Educación superior” podemos observar que hay datos sobre la cantidad de programas curriculares, estadísticas de matrícula por municipios, por departamentos, podemos ver que instituciones cuentan con acreditación, si son públicas o privadas, entre otras. A continuación podemos realizar un procedimiento similar al realizado en este documento, seleccionando las variables que se consideren relevantes para clasificar las instituciones en un escalafón particular definido por las persona que realiza el estudio.</p>
+<p>https://www.mineducacion.gov.co/portal/Ministerio/Informacion-Institucional/349303:Datos-Abiertos</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">9- Links</h2>
+<ul>
+<li><p>Para conocer la aplicación web que creamos utilizando el modelo creado, haz click, <a href="https://sebasrendon12.shinyapps.io/myapp/"> aquí </a> .</p></li>
+<li><p>Para conocer el video donde explicamos acerca del funcionamiento de la aplicación, haz click, <a href="https://sebasrendon12.shinyapps.io/myapp/"> aquí </a> .</p></li>
+</ul>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">10- Referencias</h2>
+<ul>
+<li><p>Delgado, R.. (2018). Introducción a los Modelos de Agrupamiento (Clustering) en R. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/rdelgado/399475</p></li>
+<li><p>Amat, J.. (2017). Clustering y heatmaps: aprendizaje no supervisado. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/Joaquin_AR/310338</p></li>
+</ul>
+<div class="cell">
+
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

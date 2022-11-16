@@ -346,7 +346,13 @@ En el siguiente link podemos encontrar información relacionada a las institucio
 
 https://www.mineducacion.gov.co/portal/Ministerio/Informacion-Institucional/349303:Datos-Abiertos
 
-## 9- Referencias
+## 9- Links
+
+-   Para conocer la aplicación web que creamos utilizando el modelo creado, haz click, <a href='https://sebasrendon12.shinyapps.io/myapp/'> aquí </a> .
+
+-   Para conocer el video donde explicamos acerca del funcionamiento de la aplicación, haz click, <a href='https://sebasrendon12.shinyapps.io/myapp/'> aquí </a> .
+
+## 10- Referencias
 
 -   Delgado, R.. (2018). Introducción a los Modelos de Agrupamiento (Clustering) en R. 2022, octubre 19, de RPubs. Sitio web: https://rpubs.com/rdelgado/399475
 
