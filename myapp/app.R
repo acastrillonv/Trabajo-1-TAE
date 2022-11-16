@@ -65,8 +65,8 @@ ui <- fluidPage(tabPanel("Interactive map",
                           leafletOutput("map", width="100%", height="100%"),
                           
                           absolutePanel(id = "controls", class = "panel panel-info", fixed = TRUE,
-                                        draggable = FALSE, top = 60, left = "auto", right = 20, bottom = "auto",
-                                        width = 400, height = "auto",
+                                        draggable = FALSE, top = 20, left = "auto", right = 20, bottom = "auto",
+                                        width = 400, height = '90vh', style='overflow-y:scroll;',
                                         
                                         h3("Características de los grupos",style='text-align:center;font-weight: 700;'),
                                         selectInput("grupo", "Seleccione Grupo", choices = list("1" = "1" ,
@@ -81,7 +81,7 @@ ui <- fluidPage(tabPanel("Interactive map",
                                         
                                         ),
                             absolutePanel(id='infoPanel', class='panel panel-info', fixed = TRUE, draggable = FALSE,
-                                          top = 50, right = 'auto', left = 10, width = 350, height = 'auto',
+                                          top = 50, right = 'auto', left = 10, width = 350, height = '90vh', style='overflow-y:scroll;',
                                           h3("Agrupamiento de instituciones de Estados Unidos",style='text-align:center;font-weight: 700;'),
                                           h5('En esta página, te ayudamos a identificar que grupo de universidades se ajustan a las
                                             características que tu desees.
