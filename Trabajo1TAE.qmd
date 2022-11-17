@@ -348,9 +348,9 @@ https://www.mineducacion.gov.co/portal/Ministerio/Informacion-Institucional/3493
 
 ## 9- Links
 
--   Para conocer la aplicación web que creamos utilizando el modelo creado, haz click, <a href='https://sebasrendon12.shinyapps.io/myapp/'> aquí </a> .
+-   Para conocer la aplicación web que creamos utilizando el modelo creado, haz click, <a href='https://sebasrendon12.shinyapps.io/myapp/' target='_blank'> aquí </a> .
 
--   Para conocer el video donde explicamos acerca del funcionamiento de la aplicación, haz click, <a href='https://sebasrendon12.shinyapps.io/myapp/'> aquí </a> .
+-   Para conocer el video donde explicamos acerca del funcionamiento de la aplicación, haz click, <a href='https://youtu.be/J9ok8tUQ7Zw' target='_blank'> aquí </a> .
 
 ## 10- Referencias
 
