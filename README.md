@@ -8,3 +8,4 @@
 
 # Link Blog https://acastrillonv.github.io/Trabajo-1-TAE/
 # Link Video https://youtu.be/J9ok8tUQ7Zw
+# Link app https://sebasrendon12.shinyapps.io/myapp/
