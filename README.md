@@ -7,4 +7,4 @@
 - Sebastian Rendón Arteaga.
 
 # Link Blog https://acastrillonv.github.io/Trabajo-1-TAE/
-# Link Video https://youtu.be/lc9o3FC0A_U
+# Link Video https://youtu.be/J9ok8tUQ7Zw
