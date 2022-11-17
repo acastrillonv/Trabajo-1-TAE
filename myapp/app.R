@@ -109,7 +109,7 @@ ui <- fluidPage(tabPanel("Interactive map",
                                           h1(uiOutput("group",align='center')),
                                           h5('A continuación, ingresa el número del grupo en el panel derecho 
                                              para poder conocer las características y universidades que hay en este grupo.', style='text-align:justify'),
-                                          h5('Para saber más del funcionamiento mira el siguiente ',a('video', href='https://www.youtube.com',target="_blank")),
+                                          h5('Para saber más del funcionamiento mira el siguiente ',a('video', href='https://youtu.be/J9ok8tUQ7Zw',target="_blank")),
                                           h5('Para conocer el desarrollo de este trabajo ingresa ',a('aquí', href='https://acastrillonv.github.io/Trabajo-1-TAE/',target="_blank")),
                                           )
                                         
